@@ -216,7 +216,7 @@ def train(model, params, train_data, val_data, learning_rate):
                   + f"and Validation Loss: {losses['val']:.4f}")
         xb, yb = get_batch(train_data)
         _, loss = model.forward(xb, yb)
-        optimizer.zero_grad(set_to_none=True)
+        optimizer.zero_grad(set_to_none=True) # ensuring no gradient accumulation
         loss.backward()
         optimizer.step()
 
