@@ -53,9 +53,10 @@ def get_batch(data):
     return x, y
 
 
-@torch.no_grad()
+@torch.no_grad() # letting pytorch know no backward computation needs to happen
 def estimate_loss(model, train_data, val_data):
     out = {}
+    # setting this to validation mode. This becomes necessary when for example there are dropout layers. During validation, all parameters need to be used
     model.eval()
     for split in ["train", "val"]:
         losses = torch.zeros(EVAL_SIZE)
