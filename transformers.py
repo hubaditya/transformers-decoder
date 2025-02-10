@@ -85,8 +85,8 @@ class Head(nn.Module):
         self.key = nn.Linear(EMBEDDING_SIZE, HEAD_SIZE, bias=False)
         self.query = nn.Linear(EMBEDDING_SIZE, HEAD_SIZE, bias=False)
         self.value = nn.Linear(EMBEDDING_SIZE, HEAD_SIZE, bias=False)
-        # adding another parameter that should not be considered as a model parameter
-        # PyTorch calls it buffer
+        # since "tril" is not a model parameter, pytorch by default will put it on CPU
+        # by registering this as a buffer, pytorch puts this on GPU 
         self.register_buffer('tril', torch.tril(torch.ones(BLOCK_SIZE, BLOCK_SIZE)))
         self.dropout = nn.Dropout(dropout)
 
